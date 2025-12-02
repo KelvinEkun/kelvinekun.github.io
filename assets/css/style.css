@@ -1,5 +1,36 @@
 /* BASIC SETUP */
 
+.navbar li a {
+    color: #1E90FF; /* Dodger Blue */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.navbar li a:hover {
+    color: #104E8B; /* Darker blue on hover for effect */
+}
+:root {
+    --bling-color: #1E90FF; /* bright magenta/purple */
+}
+
+.page-intro {
+    display: flex;            /* enable flexbox */
+    align-items: center;      /* vertically center the items */
+    gap: 30px;                /* optional: space between text and image */
+}
+
+.page-intro-item {
+    flex: 1;                  /* allow text to take remaining space */
+}.page-intro {
+    display: flex;            /* enable flexbox */
+    align-items: center;      /* vertically center the items */
+    gap: 30px;                /* optional: space between text and image */
+}
+
+.page-intro-item {
+    flex: 1;                  /* allow text to take remaining space */
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -73,9 +104,11 @@ a {
     transition: color 150ms ease;
 }
 .roundImg {
-    border-radius: 30%;
-    border: 5px outset white;
-  }
+    border-radius: 50%;  /* makes the image circular */
+    object-fit: cover;   /* ensures the image fills the circle without distortion */
+    width: 210px;        /* keep your desired width */
+    height: 210px;       /* set height equal to width for perfect circle */
+}
 .link,
 .intro a,
 .navbar a,
@@ -200,7 +233,7 @@ a {
 .fab {
     font-family: "Font Awesome 5 Brands";
 }
-  
+
 .fa,
 .fab,
 .fad,
