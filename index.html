@@ -7,37 +7,52 @@
 
   <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 
-  <!-- Clean, readable fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Monospaced research-style font -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
 
-  <!-- Text spacing + font rules -->
+  <!-- Typography + layout rules -->
   <style>
     body {
-      font-family: 'Source Serif 4', serif;
+      font-family: 'IBM Plex Mono', monospace;
       font-size: 1.05rem;
-      line-height: 1.8;
-    }
-
-    h1, h2, h3, .logo a, .section-title {
-      font-family: 'IBM Plex Sans', sans-serif;
-      letter-spacing: 0.02em;
-    }
-
-    .bio-text {
-      text-align: justify;
       line-height: 1.9;
-      word-spacing: 0.12em;
+      letter-spacing: 0.04em;
+    }
+
+    /* Center the research section */
+    .research-section {
+      max-width: 900px;
+      margin: 60px auto 0 auto;
+      text-align: center;
     }
 
     .research-section p {
-      line-height: 1.75;
-      word-spacing: 0.08em;
+      text-align: justify;
+      word-spacing: 0.18em;
+      line-height: 2;
+      margin-bottom: 22px;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 70px;
+      height: 3px;
+      background-color: var(--bling-color);
+      margin: 16px auto 0 auto;
     }
   </style>
 </head>
+
 
 
 <body>
