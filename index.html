@@ -1,139 +1,512 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kelvin Ekun</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
-
-  <!-- Monospaced research-style font -->
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
-
-  <!-- Typography + layout rules -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e5e1db;
+      --text: #18170f;
+      --muted: #6b6760;
+      --accent: #1a3d7c;
+      --accent-hover: #122d5e;
+      --tag-bg: #eeeae4;
+      --font-serif: 'EB Garamond', Georgia, serif;
+      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --sidebar-w: 290px;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 1.05rem;
-      line-height: 1.9;
-      letter-spacing: 0.04em;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.75;
     }
 
-    /* Center the research section */
-    .research-section {
-      max-width: 900px;
-      margin: 60px auto 0 auto;
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout ── */
+    .layout {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      max-width: 1080px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 3rem 1.75rem 2rem;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      background: var(--surface);
+    }
+    .sidebar::-webkit-scrollbar { width: 0; }
+
+    .photo-wrap {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--border);
+      flex-shrink: 0;
+      background: var(--tag-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .photo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-placeholder {
+      font-size: 11px;
+      color: var(--muted);
       text-align: center;
+      padding: 0.5rem;
+      line-height: 1.5;
     }
 
-    .research-section p {
-      text-align: justify;
-      word-spacing: 0.18em;
-      line-height: 2;
-      margin-bottom: 22px;
+    .sidebar-name {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
     }
+
+    .sidebar-role {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 0.3rem;
+    }
+    .sidebar-role strong {
+      display: block;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 13.5px;
+    }
+
+    .s-block { display: flex; flex-direction: column; gap: 0.3rem; }
+    .s-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .s-block a { font-size: 13.5px; color: var(--accent); }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .tag {
+      background: var(--tag-bg);
+      color: var(--text);
+      font-size: 11.5px;
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      line-height: 1.6;
+    }
+
+    .sidebar-nav {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+    .sidebar-nav a {
+      font-size: 13.5px;
+      color: var(--muted);
+      padding: 0.3rem 0;
+      transition: color 0.15s;
+    }
+    .sidebar-nav a:hover { color: var(--accent); text-decoration: none; }
+
+    .cv-btn {
+      display: inline-block;
+      margin-top: 0.6rem;
+      background: var(--accent);
+      color: #fff !important;
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 0.45rem 1rem;
+      border-radius: 4px;
+      text-align: center;
+      letter-spacing: 0.01em;
+      transition: background 0.15s;
+    }
+    .cv-btn:hover { background: var(--accent-hover); text-decoration: none !important; }
+
+    /* ── Main ── */
+    main {
+      padding: 3.5rem 3.5rem 5rem;
+      max-width: 720px;
+    }
+
+    section { margin-bottom: 3.5rem; }
 
     .section-title {
-      font-size: 1.6rem;
-      margin-bottom: 30px;
-      text-align: center;
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
     }
 
-    .section-title::after {
-      content: "";
-      display: block;
-      width: 70px;
-      height: 3px;
-      background-color: var(--bling-color);
-      margin: 16px auto 0 auto;
+    /* About */
+    #about p {
+      font-size: 15.5px;
+      line-height: 1.8;
+      color: #2a2820;
+      margin-bottom: 0.9rem;
+    }
+    #about p:last-child { margin-bottom: 0; }
+
+    /* News */
+    .news-list { display: flex; flex-direction: column; gap: 0.9rem; }
+    .news-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 0.75rem;
+      align-items: start;
+    }
+    .news-date {
+      font-size: 12.5px;
+      color: var(--muted);
+      padding-top: 0.15rem;
+      white-space: nowrap;
+    }
+    .news-text { font-size: 14.5px; line-height: 1.65; }
+    .news-text strong { font-weight: 500; }
+
+    /* Publications */
+    .pub-list { display: flex; flex-direction: column; gap: 2rem; }
+    .pub-title {
+      font-family: var(--font-serif);
+      font-size: 1.07rem;
+      font-weight: 500;
+      line-height: 1.4;
+      margin-bottom: 0.3rem;
+    }
+    .pub-venue {
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 0.3rem;
+    }
+    .pub-authors {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 0.55rem;
+    }
+    .pub-authors em { font-style: normal; color: var(--text); font-weight: 500; }
+    .pub-links { display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: center; }
+
+    .pub-badge {
+      font-size: 11.5px;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--bg);
+    }
+    .pub-badge.award { background: #fef9ec; border-color: #e8d87a; color: #7a6400; }
+    .pub-badge.review { background: #f0f4fb; border-color: #b5c9ef; color: var(--accent); }
+    .pub-link {
+      font-size: 12.5px;
+      color: var(--accent);
+      border: 1px solid #b5c9ef;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+      background: #f0f4fb;
+    }
+    .pub-link:hover { background: #dde8f7; text-decoration: none; }
+
+    /* Contact */
+    .contact-grid { display: flex; flex-direction: column; gap: 0.6rem; }
+    .contact-row {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 0.5rem;
+      font-size: 14.5px;
+    }
+    .c-label { color: var(--muted); }
+
+    /* Footer */
+    footer {
+      padding: 1.5rem 3.5rem;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 760px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 2rem 1.5rem 1.5rem;
+      }
+      .sidebar-nav {
+        margin-top: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        padding-top: 0.75rem;
+      }
+      main { padding: 2rem 1.5rem 3rem; }
+      .news-item { grid-template-columns: 1fr; gap: 0.15rem; }
+      footer { padding: 1.5rem; }
     }
   </style>
 </head>
-
-
-
 <body>
-  <header class="site-header">
-    <nav class="nav">
-      <div class="container flex-wrap">
-        <h1 class="logo">
-          <a href="/">Kelvin Ekun</a>
-        </h1>
 
-        <ul class="navbar">
-          <li><a href="/">About</a></li>
-          <li><a href="blog.html">Updates</a></li>
-          <li><a href="pubs.html">Publications</a></li>
-          <li><a href="resume.pdf" target="_blank" rel="noopener">Resume</a></li>
-        </ul>
+<div class="layout">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+
+    <div class="photo-wrap">
+      <!--
+        Replace the src below with the actual path to your photo.
+        If your photo is at assets/img/profile.jpeg, this should work as-is.
+        The onerror fallback shows a placeholder if the image isn't found.
+      -->
+      <img
+        src="assets/img/profile.jpeg"
+        alt="Kelvin Ekun"
+        onerror="this.outerHTML='<div class=\'photo-placeholder\'>Add photo<br>assets/img/<br>profile.jpeg</div>'"
+      />
+    </div>
+
+    <div>
+      <div class="sidebar-name">Kelvin Ekun</div>
+      <div class="sidebar-role">
+        <strong>Ph.D. Candidate</strong>
+        Industrial Engineering &amp; Operations Research<br>
+        University of Massachusetts Amherst
       </div>
+    </div>
+
+    <div class="s-block">
+      <span class="s-label">Email</span>
+      <a href="mailto:kekun@umass.edu">kekun@umass.edu</a>
+    </div>
+
+    <div class="s-block">
+      <span class="s-label">Research Interests</span>
+      <div class="tags">
+        <span class="tag">Online Learning</span>
+        <span class="tag">Revenue Management</span>
+        <span class="tag">Decision under Uncertainty</span>
+        <span class="tag">Make-to-Order Supply Chains</span>
+        <span class="tag">Primal-Dual Methods</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#about">About</a>
+      <a href="#news">News</a>
+      <a href="#publications">Publications</a>
+      <a href="#contact">Contact</a>
+      <a href="Ekun_Kelvin_CV.pdf" class="cv-btn" target="_blank">↓ Download CV (PDF)</a>
     </nav>
-  </header>
 
-  <article class="page container">
-    <div class="page-content">
-      <div class="page-intro" style="display: flex; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
-        <!-- Left column: image + contact/social -->
-        <div style="display: flex; flex-direction: column; align-items: center; width: 220px;">
-          <img
-            src="assets/img/profile.jpeg"
-            alt="Kelvin Ekun"
-            style="border-radius: 50%; width: 180px; height: 180px; object-fit: cover;"
-          />
+  </aside>
 
-          <div style="margin-top: 20px; text-align: center;">
-            <strong>Email:</strong>
-            <a href="mailto:kekun@umass.edu" style="color: var(--bling-color); font-weight: bold;">kekun@umass.edu</a>
+  <!-- ── MAIN CONTENT ── -->
+  <main>
 
-            <div style="margin-top: 10px;">
-              <a href="https://github.com/KelvinEkun" style="color: var(--bling-color); font-weight: bold;" target="_blank" rel="noopener">
-                <i class="fab fa-github"></i>
-              </a>
-              &nbsp;/&nbsp;
-              <a href="https://www.linkedin.com/in/kelvin-ekun-28a901127/" style="color: var(--bling-color); font-weight: bold;" target="_blank" rel="noopener">
-                <i class="fab fa-linkedin"></i>
-              </a>
-              &nbsp;/&nbsp;
-              <a href="https://scholar.google.com/citations?user=SxOiwLwAAAAJ&hl=en&oi=ao" style="color: var(--bling-color); font-weight: bold;" target="_blank" rel="noopener">
-                <i class="ai ai-google-scholar-square ai-2em"></i>
-              </a>
-            </div>
+    <!-- ABOUT -->
+    <section id="about">
+      <h2 class="section-title">About</h2>
+      <p>
+        I am a Ph.D. candidate in Industrial Engineering and Operations Research at the
+        <strong>University of Massachusetts Amherst</strong>, advised by
+        <a href="https://www.isenberg.umass.edu/faculty-staff/ana-muriel" target="_blank">Professor Ana Muriel</a>.
+        I received my B.Sc. in Industrial and Production Engineering from the University of Ibadan.
+      </p>
+      <p>
+        My research sits at the intersection of <strong>machine learning and operations research</strong>,
+        with a focus on practical decision-making models for make-to-order (MTO) manufacturing firms.
+        My dissertation studies online lead-time quotation policies when customer responses are delayed —
+        creating contingent demand and capacity outcomes — a problem with direct implications for how
+        manufacturers quote lead times under uncertainty.
+      </p>
+      <p>
+        More broadly, I am interested in <strong>online learning, revenue management, and
+        primal-dual methods</strong> for large-scale optimization problems. I also have experience
+        leading technology development of quotation-support tools for industrial partners.
+      </p>
+    </section>
+
+    <!-- NEWS -->
+    <section id="news">
+      <h2 class="section-title">News</h2>
+      <div class="news-list">
+
+        <div class="news-item">
+          <span class="news-date">Fall 2026</span>
+          <span class="news-text">
+            Incoming <strong>Teaching Fellow</strong>, College of Engineering, UMass Amherst.
+          </span>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Spring 2026</span>
+          <span class="news-text">
+            Mentoring undergraduates through the <strong>NSF Research Experience for Undergraduates (REU)</strong>
+            program at the Supply Chain Management Lab, UMass Amherst.
+          </span>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Spring 2025</span>
+          <span class="news-text">
+            Teaching Assistant for <strong>MIE 123 Engineering Economics</strong>, UMass Amherst.
+          </span>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">2025</span>
+          <span class="news-text">
+            Received <strong>UMass Innovation Corps Startup Funding</strong>.
+          </span>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Summer 2024</span>
+          <span class="news-text">
+            Teaching Mentor, <strong>UMass Summer Engineering Institute Program</strong>.
+          </span>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">2024</span>
+          <span class="news-text">
+            Awarded <strong>Best Track Paper</strong> — IISE Modeling &amp; Simulation Track,
+            IISE Annual Conference 2024.
+          </span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <h2 class="section-title">Publications</h2>
+      <div class="pub-list">
+
+        <div class="pub-item">
+          <div class="pub-title">
+            Online lead time quotation under delayed feedback: theoretical guarantees and
+            empirical evaluation through offline production scheduling
+          </div>
+          <div class="pub-venue">Under major review, 2026</div>
+          <div class="pub-authors"><em>K. R. Ekun</em> &amp; A. Muriel</div>
+          <div class="pub-links">
+            <span class="pub-badge review">Under Review</span>
           </div>
         </div>
 
-        <!-- Right column: bio -->
-        <div style="flex: 1; min-width: 300px;">
-          <p class="bio-text">
-            Hello, and welcome to my website. I’m an Industrial Engineering PhD candidate at UMass
-            interested in the intersection of supply chain management and machine learning.
-          </p>
+        <div class="pub-item">
+          <div class="pub-title">
+            Online primal-dual approach to scheduling with overtime
+          </div>
+          <div class="pub-venue">Under major review, 2026</div>
+          <div class="pub-authors"><em>K. R. Ekun</em></div>
+          <div class="pub-links">
+            <span class="pub-badge review">Under Review</span>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-title">
+            Online lead time quotation under contingency
+          </div>
+          <div class="pub-venue">
+            <em>IISE Annual Conference Proceedings</em>, pp. 1–6, 2024
+          </div>
+          <div class="pub-authors"><em>K. R. Ekun</em> &amp; A. Muriel</div>
+          <div class="pub-links">
+            <a href="https://doi.org/10.21872/2024IISE_6090" target="_blank" class="pub-link">[DOI]</a>
+            <span class="pub-badge award">🏆 Best Track Paper — IISE M&amp;S Track 2024</span>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-title">
+            Development of a predictive maintenance model for a cassava pulveriser
+          </div>
+          <div class="pub-venue">
+            <em>Journal of Engineering in Agriculture and the Environment</em>, 8(2), 2022
+          </div>
+          <div class="pub-authors"><em>K. R. Ekun</em> &amp; A. E. Oluleye</div>
+          <div class="pub-links">
+            <a href="https://doi.org/10.37017/jeae-volume8-no2.2022-1" target="_blank" class="pub-link">[DOI]</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2 class="section-title">Contact</h2>
+      <p style="font-size:14.5px; color:#3a3830; margin-bottom:1.1rem;">
+        The best way to reach me is by email. I'm also reachable on LinkedIn.
+      </p>
+      <div class="contact-grid">
+        <div class="contact-row">
+          <span class="c-label">Email</span>
+          <a href="mailto:kekun@umass.edu">kekun@umass.edu</a>
+        </div>
+        <div class="contact-row">
+          <span class="c-label">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/kelvin-ekun" target="_blank">linkedin.com/in/kelvin-ekun</a>
+        </div>
+        <div class="contact-row">
+          <span class="c-label">Phone</span>
+          <span>+1 (413) 399-8499</span>
+        </div>
+        <div class="contact-row">
+          <span class="c-label">Location</span>
+          <span>Amherst, MA, USA</span>
         </div>
       </div>
+    </section>
 
-      <!-- Research section constrained to page width -->
-      <div class="research-section">
-        <h2 class="section-title">Research</h2>
+  </main>
+</div>
 
-        <p>
-          My current research focus is on <strong>online learning and decision-making under uncertainty</strong>,
-          with applications to make-to-order manufacturing and service firms.
-        </p>
+<footer>
+  © Kelvin Ekun &nbsp;·&nbsp; Last updated April 2026
+</footer>
 
-        <p>
-          I am also interested in graph neural networks, neural algorithmic reasoning, and primal-dual algorithms,
-          which form the methodological backbone of my work.
-        </p>
-
-        <p>
-          Previously, I was a research associate <strong>Reeddi</strong>, where I worked on predicting emissions from supply chain equipment.
-          I also have professional experience in the fast-moving consumer goods (FMCG) industry as a graduate intern at <strong>Heneiken subsidiary (Nigerian Breweries)</strong>
-          as well as an undergraduate intern at <strong>British American Tobacco (BAT)</strong>. In both experiences, I worked on continuous improvement and total productivity management.
-        </p>
-      </div>
-    </div>
-  </article>
 </body>
 </html>
