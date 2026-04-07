@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Outside the Lab — Kelvin Ekun</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e5e1db;
+      --text: #18170f;
+      --muted: #6b6760;
+      --accent: #1a3d7c;
+      --accent-hover: #122d5e;
+      --tag-bg: #eeeae4;
+      --font-serif: 'EB Garamond', Georgia, serif;
+      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --sidebar-w: 290px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout ── */
+    .layout {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      max-width: 1080px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 3rem 1.75rem 2rem;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      background: var(--surface);
+    }
+    .sidebar::-webkit-scrollbar { width: 0; }
+
+    .photo-wrap {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--border);
+      flex-shrink: 0;
+      background: var(--tag-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .photo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-placeholder {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      padding: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .sidebar-name {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+    .sidebar-role {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 0.3rem;
+    }
+    .sidebar-role strong {
+      display: block;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 13.5px;
+    }
+
+    .s-block { display: flex; flex-direction: column; gap: 0.3rem; }
+    .s-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .s-block a { font-size: 13.5px; color: var(--accent); }
+
+    .sidebar-nav {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+    .sidebar-nav a {
+      font-size: 13.5px;
+      color: var(--muted);
+      padding: 0.3rem 0;
+      transition: color 0.15s;
+    }
+    .sidebar-nav a:hover { color: var(--accent); text-decoration: none; }
+    .sidebar-nav a.active { color: var(--accent); font-weight: 500; }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 0.6rem;
+      background: var(--tag-bg);
+      color: var(--text) !important;
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 0.45rem 1rem;
+      border-radius: 4px;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .back-btn:hover { background: var(--border); text-decoration: none !important; }
+
+    /* ── Main ── */
+    main { padding: 3.5rem 3.5rem 5rem; max-width: 720px; }
+
+    section { margin-bottom: 3.5rem; }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Page header */
+    .page-header { margin-bottom: 3rem; }
+    .page-header h1 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .page-header p {
+      font-size: 15.5px;
+      color: #3a3830;
+      line-height: 1.8;
+      max-width: 560px;
+    }
+
+    /* ── Intro blurb ── */
+    #intro p {
+      font-size: 15.5px;
+      line-height: 1.85;
+      color: #2a2820;
+      margin-bottom: 0.9rem;
+    }
+    #intro p:last-child { margin-bottom: 0; }
+
+    /* ── Interests grid ── */
+    .interests-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .interest-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem 1.4rem;
+    }
+    .interest-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .interest-title {
+      font-weight: 500;
+      font-size: 14.5px;
+      margin-bottom: 0.35rem;
+    }
+    .interest-desc { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+    /* ── Football ── */
+    #football p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #2a2820;
+      margin-bottom: 0.85rem;
+    }
+    #football p:last-child { margin-bottom: 0; }
+
+    .footy-aside {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 4px;
+      padding: 1rem 1.25rem;
+      margin-top: 1.25rem;
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .footy-aside strong { color: var(--text); }
+
+    /* ── Writing ── */
+    .writing-intro {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #2a2820;
+      margin-bottom: 1.5rem;
+    }
+
+    .outlet-block { margin-bottom: 2rem; }
+    .outlet-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .outlet-name {
+      font-weight: 500;
+      font-size: 14.5px;
+    }
+    .outlet-meta {
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    .article-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .article-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      font-size: 14px;
+    }
+    .article-item::before {
+      content: "—";
+      color: var(--muted);
+      flex-shrink: 0;
+      font-size: 12px;
+    }
+    .article-item a { color: var(--accent); }
+
+    .writing-note {
+      margin-top: 1.25rem;
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.7;
+      padding: 0.9rem 1.1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 1.5rem 3.5rem;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 760px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 2rem 1.5rem 1.5rem;
+      }
+      .sidebar-nav {
+        margin-top: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        padding-top: 0.75rem;
+      }
+      main { padding: 2rem 1.5rem 3rem; }
+      .interests-grid { grid-template-columns: 1fr; }
+      footer { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+
+    <div class="photo-wrap">
+      <img
+        src="assets/img/profile.jpeg"
+        alt="Kelvin Ekun"
+        onerror="this.outerHTML='<div class=\'photo-placeholder\'>Add photo<br>assets/img/<br>profile.jpeg</div>'"
+      />
+    </div>
+
+    <div>
+      <div class="sidebar-name">Kelvin Ekun</div>
+      <div class="sidebar-role">
+        <strong>Ph.D. Candidate</strong>
+        Industrial Engineering &amp; Operations Research<br>
+        University of Massachusetts Amherst
+      </div>
+    </div>
+
+    <div class="s-block">
+      <span class="s-label">Email</span>
+      <a href="mailto:kekun@umass.edu">kekun@umass.edu</a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#news">News</a>
+      <a href="outside.html" class="active">Outside the Lab</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="Ekun_Kelvin_CV.pdf" class="back-btn" target="_blank">↓ Download CV</a>
+    </nav>
+
+  </aside>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main>
+
+    <div class="page-header">
+      <h1>Outside the Lab</h1>
+      <p>
+        A PhD is not a personality. Here's what else is going on.
+      </p>
+    </div>
+
+    <!-- INTRO -->
+    <section id="intro">
+      <p>
+        I grew up in Nigeria and spent a good chunk of my early career writing — career guides,
+        tech explainers, sustainability reports — before pivoting fully into research. That background
+        shapes how I think: I care about clarity, about making ideas land, and about the gap between
+        what research says and what people actually understand.
+      </p>
+      <p>
+        Outside of optimization models and stochastic proofs, I follow football obsessively,
+        read widely, and still write when the subject is interesting enough.
+      </p>
+    </section>
+
+    <!-- INTERESTS -->
+    <section id="interests">
+      <h2 class="section-title">Interests</h2>
+      <div class="interests-grid">
+        <div class="interest-card">
+          <div class="interest-icon">⚽</div>
+          <div class="interest-title">Football</div>
+          <div class="interest-desc">
+            European club football, tactical analysis, and the occasional
+            argument about whether possession actually wins games.
+          </div>
+        </div>
+        <div class="interest-card">
+          <div class="interest-icon">✍️</div>
+          <div class="interest-title">Writing</div>
+          <div class="interest-desc">
+            Long-form articles, technical explainers, and sustainability
+            communication. 200+ pieces published across multiple platforms.
+          </div>
+        </div>
+        <div class="interest-card">
+          <div class="interest-icon">📚</div>
+          <div class="interest-title">Reading</div>
+          <div class="interest-desc">
+            Non-fiction, especially on economics, decision-making, and
+            how systems — human or otherwise — fail.
+          </div>
+        </div>
+        <div class="interest-card">
+          <div class="interest-icon">🌍</div>
+          <div class="interest-title">Africa's Energy Transition</div>
+          <div class="interest-desc">
+            Genuinely fascinated by how decentralized energy systems
+            could reshape outcomes across sub-Saharan Africa.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTBALL -->
+    <section id="football">
+      <h2 class="section-title">Football</h2>
+      <p>
+        I've been watching European football seriously since I was a teenager in Ibadan.
+        The game rewards a particular kind of thinking — probabilistic, positional, about
+        managing uncertainty across 90 minutes — which, honestly, is not entirely different
+        from what I study.
+      </p>
+      <p>
+        I used to write about it too. Five published pieces on European football for
+        CrossandNod, which mostly involved convincing an editor that process-based analysis
+        was more interesting than match reports. I still think it is.
+      </p>
+      <div class="footy-aside">
+        <strong>Hot take on record:</strong> Expected goals (xG) is the most useful thing
+        football analytics gave the public, and most people still use it wrong.
+        It describes finishing luck, not quality. The model doesn't care who took the shot.
+      </div>
+    </section>
+
+    <!-- WRITING -->
+    <section id="writing">
+      <h2 class="section-title">Writing Portfolio</h2>
+      <p class="writing-intro">
+        Before the PhD, I spent several years as a working writer. Across platforms reaching
+        tens of millions of readers monthly, I wrote on technology, careers, sustainability,
+        and operations. The discipline of writing clearly for a general audience is something
+        I carry into research.
+      </p>
+
+      <div class="outlet-block">
+        <div class="outlet-header">
+          <span class="outlet-name">MakeUseOf</span>
+          <span class="outlet-meta">58 articles · Technology &amp; Productivity · ~9M monthly readers</span>
+        </div>
+        <div class="article-list">
+          <div class="article-item">
+            <a href="https://www.makeuseof.com/author/kelvin-ekun/" target="_blank">
+              View published articles on MakeUseOf →
+            </a>
+          </div>
+        </div>
+        <p style="font-size:13.5px; color:var(--muted); margin-top:0.6rem; line-height:1.65;">
+          Covered software tools, digital workflows, and practical productivity — translating
+          technical concepts into accessible, structured guides for everyday readers.
+        </p>
+      </div>
+
+      <div class="outlet-block">
+        <div class="outlet-header">
+          <span class="outlet-name">Career Karma</span>
+          <span class="outlet-meta">37 articles · Careers &amp; Education · ~3M monthly readers</span>
+        </div>
+        <p style="font-size:13.5px; color:var(--muted); line-height:1.65;">
+          Long-form guides on career pathways, technical skills, and education trends.
+          End-to-end content development from research and outlining through final edit.
+        </p>
+      </div>
+
+      <div class="outlet-block">
+        <div class="outlet-header">
+          <span class="outlet-name">Reeddi (Research Whitepapers)</span>
+          <span class="outlet-meta">3 technical whitepapers · Sustainability &amp; Energy</span>
+        </div>
+        <div class="article-list">
+          <div class="article-item">
+            <a href="https://www.reeddi.com/research" target="_blank">
+              Selected research at reeddi.com/research →
+            </a>
+          </div>
+        </div>
+        <p style="font-size:13.5px; color:var(--muted); margin-top:0.6rem; line-height:1.65;">
+          Translated life-cycle emissions data (0.03–1,423 kg CO₂/day across 50+ equipment
+          categories) into decision-relevant reports for a clean energy company operating in
+          Nigeria's decentralized energy market.
+        </p>
+      </div>
+
+      <div class="outlet-block">
+        <div class="outlet-header">
+          <span class="outlet-name">CrossandNod</span>
+          <span class="outlet-meta">5 articles · European Football</span>
+        </div>
+        <p style="font-size:13.5px; color:var(--muted); line-height:1.65;">
+          Process-oriented football writing focused on tactical and analytical angles
+          in the European game.
+        </p>
+      </div>
+
+      <div class="writing-note">
+        I also contributed 112+ articles to CopyPress for a major Canadian job platform,
+        adapting tone and terminology for regional audiences across high-volume output.
+        Writing at that pace taught me that clarity is not something you achieve once —
+        it's a habit.
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  © Kelvin Ekun &nbsp;·&nbsp; <a href="index.html">Back to main site</a>
+</footer>
+
+</body>
+</html>
