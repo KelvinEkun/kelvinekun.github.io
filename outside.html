@@ -176,7 +176,7 @@
       max-width: 560px;
     }
 
-    /* ── Intro blurb ── */
+    /* ── Intro ── */
     #intro p {
       font-size: 15.5px;
       line-height: 1.85;
@@ -204,6 +204,70 @@
       margin-bottom: 0.35rem;
     }
     .interest-desc { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+    /* ── Photo gallery ── */
+    .gallery-intro {
+      font-size: 14.5px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+    }
+
+    .gallery-item {
+      aspect-ratio: 1 / 1;
+      border-radius: 5px;
+      overflow: hidden;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img { transform: scale(1.04); }
+
+    .gallery-item .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.52));
+      color: #fff;
+      font-size: 11.5px;
+      padding: 1.5rem 0.6rem 0.5rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .gallery-item:hover .caption { opacity: 1; }
+
+    /* placeholder slot when no image uploaded */
+    .gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-size: 11.5px;
+      text-align: center;
+      padding: 0.5rem;
+      line-height: 1.5;
+    }
+    .gallery-placeholder .ph-icon { font-size: 1.4rem; opacity: 0.5; }
 
     /* ── Football ── */
     #football p {
@@ -234,7 +298,6 @@
       color: #2a2820;
       margin-bottom: 1.5rem;
     }
-
     .outlet-block { margin-bottom: 2rem; }
     .outlet-header {
       display: flex;
@@ -242,15 +305,8 @@
       gap: 0.75rem;
       margin-bottom: 0.75rem;
     }
-    .outlet-name {
-      font-weight: 500;
-      font-size: 14.5px;
-    }
-    .outlet-meta {
-      font-size: 12.5px;
-      color: var(--muted);
-    }
-
+    .outlet-name { font-weight: 500; font-size: 14.5px; }
+    .outlet-meta { font-size: 12.5px; color: var(--muted); }
     .article-list { display: flex; flex-direction: column; gap: 0.6rem; }
     .article-item {
       display: flex;
@@ -265,7 +321,6 @@
       font-size: 12px;
     }
     .article-item a { color: var(--accent); }
-
     .writing-note {
       margin-top: 1.25rem;
       font-size: 13.5px;
@@ -306,6 +361,7 @@
       }
       main { padding: 2rem 1.5rem 3rem; }
       .interests-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
       footer { padding: 1.5rem; }
     }
   </style>
@@ -345,7 +401,7 @@
       <a href="index.html#news">News</a>
       <a href="outside.html" class="active">Outside the Lab</a>
       <a href="index.html#contact">Contact</a>
-      <a href="Ekun_Kelvin_CV.pdf" class="back-btn" target="_blank">↓ Download CV</a>
+      <a href="Ekun_Kelvin_CV.pdf" class="back-btn" target="_blank">&#8595; Download CV</a>
     </nav>
 
   </aside>
@@ -355,22 +411,21 @@
 
     <div class="page-header">
       <h1>Outside the Lab</h1>
-      <p>
-        My PhD is not my personality. Here's what else is going on outside the lab.
-      </p>
+      <p>A PhD is not a personality. Here's what else is going on.</p>
     </div>
 
     <!-- INTRO -->
     <section id="intro">
       <p>
-        I grew up in Nigeria and spent a good chunk of my early career writing anything and everything. From career guides,
-        tech explainers, to sustainability reports, I got my hands dirty before pivoting fully into research. My writing background
-        shapes how I think. I care about clarity, about making ideas stick, and about the gap between
-        what research says and what people actually understand.
+        I grew up in Nigeria and spent a good chunk of my early career writing anything and
+        everything — career guides, tech explainers, sustainability reports — before pivoting
+        fully into research. That background shapes how I think: I care about clarity, about
+        making ideas stick, and about the gap between what research says and what people
+        actually understand.
       </p>
       <p>
-        Outside of optimization models and proofs, I follow football obsessively,
-        read widely, and still write when the subject is interesting enough for my fancy (such as philosophy).
+        Outside of optimization models and proofs, I follow football obsessively, read widely,
+        and still write when the subject is interesting enough.
       </p>
     </section>
 
@@ -378,38 +433,158 @@
     <section id="interests">
       <h2 class="section-title">Interests</h2>
       <div class="interests-grid">
+
         <div class="interest-card">
-          <div class="interest-icon">⚽</div>
+          <div class="interest-icon">&#9917;</div>
           <div class="interest-title">Football</div>
           <div class="interest-desc">
             European club football, tactical analysis, and the occasional
             argument about whether possession actually wins games.
           </div>
         </div>
+
         <div class="interest-card">
-          <div class="interest-icon">✍️</div>
+          <div class="interest-icon">&#9997;&#65039;</div>
           <div class="interest-title">Writing</div>
           <div class="interest-desc">
             Long-form articles, technical explainers, and sustainability
             communication. 200+ pieces published across multiple platforms.
           </div>
         </div>
+
         <div class="interest-card">
-          <div class="interest-icon">📚</div>
+          <div class="interest-icon">&#128218;</div>
           <div class="interest-title">Reading</div>
           <div class="interest-desc">
-            Non-fiction, especially on philosophy, economics, decision-making, and
-            how systems fail.
+            Non-fiction, especially on philosophy, economics, decision-making,
+            and how systems fail.
           </div>
         </div>
+
         <div class="interest-card">
-          <div class="interest-icon">🌍</div>
+          <div class="interest-icon">&#127911;</div>
+          <div class="interest-title">Music</div>
+          <div class="interest-desc">
+            Afrobeats, jazz, and anything with a strong rhythm section.
+            Music is how I decompress between long stretches of research.
+          </div>
+        </div>
+
+        <div class="interest-card">
+          <div class="interest-icon">&#127859;</div>
+          <div class="interest-title">Cooking</div>
+          <div class="interest-desc">
+            Nigerian home cooking mostly — jollof rice, egusi, pepper soup.
+            The kind of food that takes time and actually rewards patience.
+          </div>
+        </div>
+
+        <div class="interest-card">
+          <div class="interest-icon">&#127758;</div>
           <div class="interest-title">Africa's Energy Transition</div>
           <div class="interest-desc">
             Genuinely fascinated by how decentralized energy systems
             could reshape outcomes across sub-Saharan Africa.
           </div>
         </div>
+
+      </div>
+    </section>
+
+    <!-- PHOTOS -->
+    <section id="photos">
+      <h2 class="section-title">Photos</h2>
+      <p class="gallery-intro">
+        A few snapshots from life outside the office. Replace these placeholders by
+        adding your images to <code>assets/img/gallery/</code> and updating the
+        <code>src</code> paths below.
+      </p>
+      <div class="gallery-grid">
+
+        <!-- Slot 1 — replace src with e.g. assets/img/gallery/photo1.jpg -->
+        <div class="gallery-item">
+          <img
+            src="assets/img/gallery/photo1.jpg"
+            alt="Photo 1"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gallery-placeholder" style="display:none;">
+            <span class="ph-icon">&#128247;</span>
+            assets/img/gallery/<br>photo1.jpg
+          </div>
+          <div class="caption">Add a caption here</div>
+        </div>
+
+        <!-- Slot 2 -->
+        <div class="gallery-item">
+          <img
+            src="assets/img/gallery/photo2.jpg"
+            alt="Photo 2"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gallery-placeholder" style="display:none;">
+            <span class="ph-icon">&#128247;</span>
+            assets/img/gallery/<br>photo2.jpg
+          </div>
+          <div class="caption">Add a caption here</div>
+        </div>
+
+        <!-- Slot 3 -->
+        <div class="gallery-item">
+          <img
+            src="assets/img/gallery/photo3.jpg"
+            alt="Photo 3"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gallery-placeholder" style="display:none;">
+            <span class="ph-icon">&#128247;</span>
+            assets/img/gallery/<br>photo3.jpg
+          </div>
+          <div class="caption">Add a caption here</div>
+        </div>
+
+        <!-- Slot 4 -->
+        <div class="gallery-item">
+          <img
+            src="assets/img/gallery/photo4.jpg"
+            alt="Photo 4"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gallery-placeholder" style="display:none;">
+            <span class="ph-icon">&#128247;</span>
+            assets/img/gallery/<br>photo4.jpg
+          </div>
+          <div class="caption">Add a caption here</div>
+        </div>
+
+        <!-- Slot 5 -->
+        <div class="gallery-item">
+          <img
+            src="assets/img/gallery/photo5.jpg"
+            alt="Photo 5"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gallery-placeholder" style="display:none;">
+            <span class="ph-icon">&#128247;</span>
+            assets/img/gallery/<br>photo5.jpg
+          </div>
+          <div class="caption">Add a caption here</div>
+        </div>
+
+        <!-- Slot 6 -->
+        <div class="gallery-item">
+          <img
+            src="assets/img/gallery/photo6.jpg"
+            alt="Photo 6"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gallery-placeholder" style="display:none;">
+            <span class="ph-icon">&#128247;</span>
+            assets/img/gallery/<br>photo6.jpg
+          </div>
+          <div class="caption">Add a caption here</div>
+        </div>
+
       </div>
     </section>
 
@@ -417,8 +592,9 @@
     <section id="football">
       <h2 class="section-title">Football</h2>
       <p>
-        I've been watching European football since I was a teenager. I'm a Real Madrid fan
-        who sometimes supports Manchester United when they don't have managers like Amorim in charge.
+        I have been watching European football since I was a teenager in Ibadan. I am a
+        Real Madrid fan who sometimes supports Manchester United when they do not have
+        managers like Amorim in charge.
       </p>
       <p>
         I used to write about it too. Five published pieces on European football for
@@ -427,8 +603,9 @@
       </p>
       <div class="footy-aside">
         <strong>Hot take on record:</strong> Expected goals (xG) is the most useful thing
-        football analytics gave the public, and most people still use it wrong.
-        It describes finishing luck and has nothing to do with quality. The metric doesn't care who took the shot, be it Lewangoalski or Yakubu.
+        football analytics has offer the football fanatics, and most people still use it wrong. It describes
+        finishing luck and has nothing to do with quality. The metric does not care who took
+        the shot, be it Lewangoalski or Yakubu.
       </div>
     </section>
 
@@ -438,19 +615,18 @@
       <p class="writing-intro">
         Before my PhD, I spent several years as a working writer. Across platforms reaching
         tens of millions of readers monthly, I wrote on technology, careers, sustainability,
-        and operations. The discipline of writing clearly for a general audience is something
-        I carry into research.
+        and operations.
       </p>
 
       <div class="outlet-block">
         <div class="outlet-header">
           <span class="outlet-name">MakeUseOf</span>
-          <span class="outlet-meta">58 articles · Technology &amp; Productivity · ~9M monthly readers</span>
+          <span class="outlet-meta">58 articles &middot; Technology &amp; Productivity &middot; ~9M monthly readers</span>
         </div>
         <div class="article-list">
           <div class="article-item">
             <a href="https://www.makeuseof.com/author/kelvin-ekun/" target="_blank">
-              View published articles on MakeUseOf →
+              View published articles on MakeUseOf &#8594;
             </a>
           </div>
         </div>
@@ -463,7 +639,7 @@
       <div class="outlet-block">
         <div class="outlet-header">
           <span class="outlet-name">Career Karma</span>
-          <span class="outlet-meta">37 articles · Careers &amp; Education · ~3M monthly readers</span>
+          <span class="outlet-meta">37 articles &middot; Careers &amp; Education &middot; ~3M monthly readers</span>
         </div>
         <p style="font-size:13.5px; color:var(--muted); line-height:1.65;">
           Long-form guides on career pathways, technical skills, and education trends.
@@ -474,18 +650,18 @@
       <div class="outlet-block">
         <div class="outlet-header">
           <span class="outlet-name">Reeddi (Research Whitepapers)</span>
-          <span class="outlet-meta">3 technical whitepapers · Sustainability &amp; Energy</span>
+          <span class="outlet-meta">3 technical whitepapers &middot; Sustainability &amp; Energy</span>
         </div>
         <div class="article-list">
           <div class="article-item">
             <a href="https://www.reeddi.com/research" target="_blank">
-              Selected research at reeddi.com/research →
+              Selected research at reeddi.com/research &#8594;
             </a>
           </div>
         </div>
         <p style="font-size:13.5px; color:var(--muted); margin-top:0.6rem; line-height:1.65;">
-          Translated life-cycle emissions data (0.03–1,423 kg CO₂/day across 50+ equipment
-          categories) into decision-relevant reports for a clean energy company operating in
+          Translated life-cycle emissions data (0.03&#8211;1,423 kg CO&#8322;/day across 50+ equipment
+          categories) into reports for Reeddi, a clean energy company operating across Canada and
           Nigeria's decentralized energy market.
         </p>
       </div>
@@ -493,7 +669,7 @@
       <div class="outlet-block">
         <div class="outlet-header">
           <span class="outlet-name">CrossandNod</span>
-          <span class="outlet-meta">5 articles · European Football</span>
+          <span class="outlet-meta">5 articles &middot; European Football</span>
         </div>
         <p style="font-size:13.5px; color:var(--muted); line-height:1.65;">
           Process-oriented football writing focused on tactical and analytical angles
@@ -513,7 +689,7 @@
 </div>
 
 <footer>
-  © Kelvin Ekun &nbsp;·&nbsp; <a href="index.html">Back to main site</a>
+  &#169; Kelvin Ekun &nbsp;&middot;&nbsp; <a href="index.html">Back to main site</a>
 </footer>
 
 </body>
